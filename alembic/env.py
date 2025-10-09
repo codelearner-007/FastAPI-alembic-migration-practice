@@ -5,21 +5,22 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from app.core.database import Base
 from app.core.config import settings
+from app.core.database import Base
 from urllib.parse import quote_plus
 
-password = quote_plus(settings.database_password).replace('%', '%%')  # escape %
-
+password = quote_plus(settings.database_password).replace('%','%%') # escape %
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
 config.set_main_option("sqlalchemy.url",f"postgresql+psycopg2://{settings.database_username}:{password}@{settings.database_hostname}:{settings.database_port}/{settings.database_name}")
+
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
+
 
 # add your model's MetaData object here
 # for 'autogenerate' support
